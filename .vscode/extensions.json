@@ -1,0 +1,3 @@
+{
+  "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "editorconfig.editorconfig", "eamodio.gitlens", "bradlc.vscode-tailwindcss", "heybourn.headwind"]
+}

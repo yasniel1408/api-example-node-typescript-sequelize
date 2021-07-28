@@ -24,6 +24,7 @@
   "homepage": "https://github.com/yasniel1408/api-example-node-typescript-sequelize#readme",
   "dependencies": {
     "@types/node": "^16.4.3",
+    "argon2": "^0.28.2",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",

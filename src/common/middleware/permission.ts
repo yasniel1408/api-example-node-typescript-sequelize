@@ -3,7 +3,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-unresolved */
 import express from 'express';
-import { Rol } from './Rol';
+import { Rol } from './rol';
 
 class Permission {
   rolRequired(rol: Rol) {
@@ -27,7 +27,7 @@ class Permission {
     if (req.params && req.params.userId && req.params.userId === res.locals.jwt.userId) {
       return next();
     }
-    if (userRol && Rol.ADMIN) {
+    if (userRol === Rol.ADMIN) {
       return next();
     }
     return res.status(403).send();

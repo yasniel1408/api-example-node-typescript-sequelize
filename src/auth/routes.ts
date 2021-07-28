@@ -2,7 +2,7 @@
 import express from 'express';
 import { body } from 'express-validator';
 import bodyValidation from '../common/middleware/bodyValidation';
-import Route from '../common/route';
+import Route from '../common/routes';
 import authController from './controllers/authController';
 import authMiddleware from './middleware/authMiddleware';
 import jwtMiddleware from './middleware/jwtMiddleware';

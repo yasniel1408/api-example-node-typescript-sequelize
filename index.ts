@@ -4,8 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
+import AuthRoutes from './src/auth/routes';
 import './src/common/db/dBSequelize.ts';
-import Route from './src/common/route';
+import Route from './src/common/routes';
+import { UserRoute } from './src/user/routes';
 
 const dotenvResult = dotenv.config();
 if (dotenvResult.error) {
@@ -21,6 +23,8 @@ app.use(cors());
 app.use(helmet());
 
 // add routes
+routes.push(new UserRoute(app));
+routes.push(new AuthRoutes(app));
 
 const messageExpressServer: String = `Server is listening on ${port}`;
 app.get('/', (req, res) => {

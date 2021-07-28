@@ -17,6 +17,10 @@ export default class DBSequelize {
         .then(() => console.log('Connection has been established successfully.'))
         .catch((err) => console.error('Unable to connect to the database:', err));
 
+      this.instanceSequelize.sync({ force: true })
+        .then(() => console.log('Sync has been established.'))
+        .catch((err) => console.error('Error sync:', err));
+
       return DBSequelize.instanceSequelize;
     }
     return DBSequelize.instanceSequelize;

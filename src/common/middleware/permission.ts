@@ -27,7 +27,7 @@ class Permission {
     if (req.params && req.params.userId && req.params.userId === res.locals.jwt.userId) {
       return next();
     }
-    if (userRol && Rol.ADMIN) {
+    if (userRol === Rol.ADMIN) {
       return next();
     }
     return res.status(403).send();

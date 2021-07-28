@@ -35,6 +35,13 @@ class UserRepository implements CRUDRepository {
     return user;
   }
 
+  async getByEmail(email: string): Promise<any> {
+    const user = await UserDao.findOne({
+      where: { email },
+    });
+    return user;
+  }
+
   async deleteById(id: string): Promise<string> {
     const user = await UserDao.findByPk(id);
     await user.destroy();

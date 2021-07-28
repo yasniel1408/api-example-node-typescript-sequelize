@@ -24,6 +24,10 @@ class UsersService implements CRUDService {
     return userRepository.getById(id);
   }
 
+  async getUserByEmail(email: string): Promise<any> {
+    return userRepository.getByEmail(email);
+  }
+
   async deleteById(id: string): Promise<string> {
     return userRepository.deleteById(id);
   }

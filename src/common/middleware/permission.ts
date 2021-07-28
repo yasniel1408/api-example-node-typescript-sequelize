@@ -3,7 +3,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-unresolved */
 import express from 'express';
-import { Rol } from './Rol';
+import { Rol } from './rol';
 
 class Permission {
   rolRequired(rol: Rol) {

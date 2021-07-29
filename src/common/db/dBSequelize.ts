@@ -1,28 +1,39 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 
 dotenv.config();
+let url = '';
+if (process.env.NODE_ENV === 'test') {
+  url = process.env.DB_URI_TEST;
+} else if (process.env.NODE_ENV === 'development') {
+  url = process.env.DB_URI_DEV;
+} else if (process.env.NODE_ENV === 'production') {
+  url = process.env.DB_URI_PROD;
+}
 
-export default class DBSequelize {
-  private static instanceSequelize: Sequelize;
+class DBSequelize {
+  getSequelize(): Sequelize {
+    const instanceSequelize = new Sequelize(`${url}`);
+    this.authenticateDB(instanceSequelize);
+    /**
+    * Run only the first time and in tests
+    */
+    this.syncDB(instanceSequelize);
+    return instanceSequelize;
+  }
 
-  public static getDBInstance(): Sequelize {
-    if (!DBSequelize.instanceSequelize) {
-      this.instanceSequelize = new Sequelize(`${process.env.DB_URI}`);
+  async authenticateDB(instanceSequelize: Sequelize) {
+    await instanceSequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  }
 
-      this.instanceSequelize
-        .authenticate()
-        .then(() => console.log('Connection has been established successfully.'))
-        .catch((err) => console.error('Unable to connect to the database:', err));
-
-      this.instanceSequelize.sync({ force: true })
-        .then(() => console.log('Sync has been established.'))
-        .catch((err) => console.error('Error sync:', err));
-
-      return DBSequelize.instanceSequelize;
-    }
-    return DBSequelize.instanceSequelize;
+  async syncDB(instanceSequelize: Sequelize) {
+    await instanceSequelize.sync();
+    console.log('Drop and re-sync db.');
   }
 }
+
+export default new DBSequelize();

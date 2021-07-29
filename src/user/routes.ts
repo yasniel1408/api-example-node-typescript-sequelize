@@ -82,9 +82,10 @@ export class UserRoute extends Route {
      */
     this.app.put('/user/:userId/rol/:rol', [
       jwtMiddleware.validJWTNeeded,
-      permission.onlySameUserOrAdminCanDoThisAction,
       permission.rolRequired(
-        Rol.PUBLIC,
+        // Rol.PUBLIC,
+        Rol.AUTHENTICATE,
+        // Rol.ADMIN,
       ),
       userController.updatePermissionRol,
     ]);

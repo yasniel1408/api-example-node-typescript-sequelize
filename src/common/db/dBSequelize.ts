@@ -15,25 +15,29 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 class DBSequelize {
-  getSequelize(): Sequelize {
-    const instanceSequelize = new Sequelize(`${url}`);
-    this.authenticateDB(instanceSequelize);
-    /**
-    * Run only the first time and in tests
-    */
-    this.syncDB(instanceSequelize);
-    return instanceSequelize;
+  private static instanceSequelize: Sequelize;
+
+  public static getSequelize(): Sequelize {
+    if (!DBSequelize.instanceSequelize) {
+      this.instanceSequelize = new Sequelize(`${url}`);
+      this.authenticateDB();
+      /**
+      * Run only the first time and in tests
+      */
+      this.syncDB();
+    }
+    return this.instanceSequelize;
   }
 
-  async authenticateDB(instanceSequelize: Sequelize) {
-    await instanceSequelize.authenticate();
+  private static async authenticateDB() {
+    await this.instanceSequelize.authenticate();
     console.log('Connection has been established successfully.');
   }
 
-  async syncDB(instanceSequelize: Sequelize) {
-    await instanceSequelize.sync();
+  private static async syncDB() {
+    await this.instanceSequelize.sync();
     console.log('Drop and re-sync db.');
   }
 }
 
-export default new DBSequelize();
+export default DBSequelize;

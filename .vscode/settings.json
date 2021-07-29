@@ -52,12 +52,6 @@
   },
   "sqltools.connections": [
     {
-      "previewLimit": 50,
-      "driver": "SQLite",
-      "name": "testapiexample",
-      "database": "${workspaceFolder:api-example-node-typescript-sequelize}/test/to/database.sqlite"
-    },
-    {
       "mysqlOptions": {
         "authProtocol": "default"
       },

@@ -10,7 +10,7 @@ class Permission {
     return (req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
         const userRol = parseInt(res.locals.jwt.rol);
-        if (userRol && rol) {
+        if (userRol === rol) {
           next();
         } else {
           res.status(403).send();

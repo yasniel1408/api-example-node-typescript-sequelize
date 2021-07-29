@@ -20,7 +20,7 @@ class UserRepository implements CRUDRepository {
       rol: Rol.AUTHENTICATE,
     });
     await user.save();
-    return user;
+    return user.getDataValue("id");
   }
 
   async editById(id: string, resource: PutUserDto | PatchUserDto): Promise<string> {

@@ -3,7 +3,7 @@
 yarn add @types/node cors cross-env dotenv express moment mysql2 sequelize ts-custom-error argon2 sqlite3
 ```
 ```
-yarn add -D @types/cors @types/express @types/jest @types/mocha @types/moment @types/sequelize jest mocha nodemon ts-jest ts-node-dev typescript
+yarn add -D @types/cors @types/express @types/mocha @types/moment @types/sequelize mocha chai supertest nodemon ts-node-dev typescript shortid @types/supertest
 ```
 
 # .gitignore

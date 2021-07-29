@@ -8,6 +8,7 @@ const UserDao = UserClass.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
   },
   email: {
     type: DataTypes.STRING,
@@ -55,6 +56,6 @@ const UserDao = UserClass.init({
     },
   },
 
-}, { tableName: 'user', sequelize: DBSequelize.getDBInstance() });
+}, { tableName: 'Users', sequelize: DBSequelize.getSequelize() });
 
 export default UserDao;

@@ -43,9 +43,10 @@ class JwtMiddleware {
   }
 
   // eslint-disable-next-line consistent-return
-  validJWTNeeded(req: express.Request, res: express.Response,
+  validJWT(req: express.Request, res: express.Response,
     next: express.NextFunction) {
     if (req.headers.authorization) {
+    console.log('OKOKOKOKOKKOKKOKOKKOKOKOOOKOOOK', req.headers.authorization);
       try {
         const authorization = req.headers.authorization.split(' ');
         if (authorization[0] !== 'Bearer') {
@@ -57,7 +58,7 @@ class JwtMiddleware {
         ) as Jwt;
         next();
       } catch (err) {
-        return res.status(403).send();
+        return res.status(403).send(err);
       }
     } else {
       return res.status(401).send();

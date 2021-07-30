@@ -21,7 +21,7 @@ export default class AuthRoutes extends Route {
       authController.createJWT,
     ]);
     this.app.post('/auth/refresh-token', [
-      jwtMiddleware.validJWTNeeded,
+      jwtMiddleware.validJWT,
       jwtMiddleware.verifyRefreshBodyField,
       jwtMiddleware.validRefreshNeeded,
       authController.createJWT,

@@ -18,7 +18,7 @@ export class UserRoute extends Route {
     this.app
       .route('/user')
       .get(
-        jwtMiddleware.validJWTNeeded,
+        jwtMiddleware.validJWT,
         permission.rolRequired(Rol.ADMIN),
         userController.listUsers,
       )
@@ -36,7 +36,7 @@ export class UserRoute extends Route {
       .route('/user/:userId')
       .all(
         userMiddleware.validateUserExists,
-        jwtMiddleware.validJWTNeeded,
+        jwtMiddleware.validJWT,
         permission.onlySameUserOrAdminCanDoThisAction,
       )
       .get(userController.getUserById)
@@ -49,7 +49,8 @@ export class UserRoute extends Route {
         .withMessage('Must include password (5+ characters)'),
       body('firstName').isString(),
       body('lastName').isString(),
-      body('rol').isInt(),
+      body('avatar').isObject().optional(),
+      body('rol').isInt().optional(),
       bodyValidation.verifyBodyFieldsErrors,
       userMiddleware.validateSameUserIsSameUser,
       userMiddleware.userCantChangePermission,
@@ -65,6 +66,7 @@ export class UserRoute extends Route {
         .optional(),
       body('firstName').isString().optional(),
       body('lastName').isString().optional(),
+      body('avatar').isObject().optional(),
       body('rol').isInt().optional(),
       bodyValidation.verifyBodyFieldsErrors,
       userMiddleware.validatePatchEmail,
@@ -81,7 +83,7 @@ export class UserRoute extends Route {
      * Please update it for admin usage in your own application!
      */
     this.app.put('/user/:userId/rol/:rol', [
-      jwtMiddleware.validJWTNeeded,
+      jwtMiddleware.validJWT,
       permission.rolRequired(
         // Rol.PUBLIC,
         Rol.AUTHENTICATE,

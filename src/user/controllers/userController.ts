@@ -31,9 +31,9 @@ class UsersController {
   }
 
   async editUser(req: express.Request, res: express.Response) {
-    req.body.password = await argon2.hash(req.body.password);
-    await userService.editById(req.body.id, req.body);
-    res.status(204).send();
+      req.body.password = await argon2.hash(req.body.password);
+      await userService.editById(req.body.id, req.body);
+      res.status(204).send();
   }
 
   async removeUser(req: express.Request, res: express.Response) {

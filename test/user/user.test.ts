@@ -63,6 +63,7 @@ describe('user and auth endpoints', () => {
     expect(res.body.id).to.equal(firstUserIdTest);
     expect(res.body.email).to.equal(firstUserBody.email);
   });
+
   describe('with a valid access token but not permission', () => {
     it('get All - GET - /user', async () => {
       const res = await request
@@ -132,7 +133,9 @@ describe('user and auth endpoints', () => {
         expect(res.body).not.to.be.empty;
         expect(res.body).to.be.an('object');
         expect(res.body.accessToken).to.be.a('string');
-        accessToken = res.body.accessToken;
+        expect(res.body.accessToken).not.to.equal(accessToken);
+        // console.log("OKOKOKOKOKKOKKOKOKKOKOKOOOKOOOK", res.body.accessToken)
+        // accessToken = res.body.accessToken;
         refreshToken = res.body.refreshToken;
       });
 
@@ -149,28 +152,28 @@ describe('user and auth endpoints', () => {
         expect(res.status).to.equal(204);
       });
 
-  //     it('should allow a GET from /user/:userId and should have a new full name', async () => {
-  //       const res = await request
-  //         .get(`/user/${firstUserIdTest}`)
-  //         .set({ Authorization: `Bearer ${accessToken}` })
-  //         .send();
-  //       expect(res.status).to.equal(200);
-  //       expect(res.body).not.to.be.empty;
-  //       expect(res.body).to.be.an('object');
-  //       expect(res.body.id).to.be.a('string');
-  //       expect(res.body.firstName).to.equal(newFirstName2);
-  //       expect(res.body.lastName).to.equal(newLastName2);
-  //       expect(res.body.email).to.equal(firstUserBody.email);
-  //       expect(res.body.id).to.equal(firstUserIdTest);
-  //     });
+      it('should allow and should have a new full name - GET - /user/:userId', async () => {
+        const res = await request
+          .get(`/user/${firstUserIdTest}`)
+          .set({ Authorization: `Bearer ${accessToken}` })
+          .send();
+        expect(res.status).to.equal(200);
+        expect(res.body).not.to.be.empty;
+        expect(res.body).to.be.an('object');
+        expect(res.body.id).to.be.a('string');
+        expect(res.body.firstName).to.equal(newFirstName2);
+        expect(res.body.lastName).to.equal(newLastName2);
+        expect(res.body.email).to.equal(firstUserBody.email);
+        expect(res.body.id).to.equal(firstUserIdTest);
+      });
 
-  //     it('should allow a DELETE from /user/:userId', async () => {
-  //       const res = await request
-  //         .delete(`/user/${firstUserIdTest}`)
-  //         .set({ Authorization: `Bearer ${accessToken}` })
-  //         .send();
-  //       expect(res.status).to.equal(204);
-  //     });
+      it('should allow a delete user - DELETE - /user/:userId', async () => {
+        const res = await request
+          .delete(`/user/${firstUserIdTest}`)
+          .set({ Authorization: `Bearer ${accessToken}` })
+          .send();
+        expect(res.status).to.equal(204);
+      });
     });
   });
 });
